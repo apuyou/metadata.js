@@ -1,0 +1,25 @@
+{
+  "name": "exif-metadata",
+  "version": "2.0.0",
+  "description": "metadata.js is a JavaScript API for parsing & copying JPEG metadata (EXIF, IPTC, XMP, Makernotes) using ArrayBuffers.",
+  "main": "metadata.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apuyou/metadata.js.git"
+  },
+  "keywords": [
+    "metadata",
+    "exif",
+    "jpeg",
+    "ArrayBuffer"
+  ],
+  "author": "metadata.js",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apuyou/metadata.js/issues"
+  },
+  "homepage": "https://github.com/apuyou/metadata.js#readme",
+  "dependencies": {
+    "jdataview": "^2.5.0"
+  }
+}

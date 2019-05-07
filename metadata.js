@@ -1,5 +1,5 @@
 /*
- * metadata.js v1.0
+ * metadata.js
  * https://github.com/rfrench/metadata.js
  *
  * Copyright 2014, Ryan French
@@ -8,8 +8,9 @@
  * http://www.wtfpl.net/
  */
 
-/*global console, jDataView, window, Blob, ArrayBuffer, Uint8Array */
-var metadata = (function() { 'use strict';
+import jDataView from 'jdataview';
+
+ const metadata = (function() {
   var IFD0 = {
         0x8825: "GPSInfoIFDPointer",
         0x0112: "Orientation",
@@ -378,3 +379,5 @@ var metadata = (function() { 'use strict';
     }
   };
 })();
+
+export default metadata;
