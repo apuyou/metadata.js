@@ -32,7 +32,7 @@ import jDataView from 'jdataview';
         return null;
       
       var rationals = rational.split(' ');
-      if (rationals.length != 3)
+      if (rationals.length !== 3)
         return null;
             
       var degrees = rationalToFloat(rationals[0]);
@@ -51,7 +51,7 @@ import jDataView from 'jdataview';
   }
   function rationalToFloat(rational) {
     var parsedRational = rational.split('/');
-    if (parsedRational.length == 2) {
+    if (parsedRational.length === 2) {
       var nominator = parseFloat(parsedRational[0]);
       var denominator = parseFloat(parsedRational[1]);
 
@@ -75,6 +75,8 @@ import jDataView from 'jdataview';
       case "S":
       case "W":
         return -1.0;
+      default:
+        return null;
     }
   }
   function getExifMarker(sourceArrayBuffer, marker) {
@@ -124,6 +126,8 @@ import jDataView from 'jdataview';
           return arr.join(' ');
         }
         break;
+        default:
+          return null;
     }
   }
   function slice(sourceArray, start, end) {
@@ -213,7 +217,6 @@ import jDataView from 'jdataview';
         case 0xFFCE: //SOF14
         case 0xFFCF: //SOF15
         case 0xFFFE: //COM
-        /* I'm not positive the following markers can be within the header */
         case 0xFFD0: //RST0
         case 0xFFD1: //RST1
         case 0xFFD2: //RST2
@@ -248,6 +251,7 @@ import jDataView from 'jdataview';
           }
           view.seek((view.tell() + size) - 2);
           break;
+        default:
       }
 
       //SOS marker means we're done
@@ -274,7 +278,7 @@ import jDataView from 'jdataview';
 
     //no guarentee APP0 marker will be there, but if it is, lets write it first
     var jfifMarker;
-    for (var i = 0; i < destMarkers.markers.length; i++) {
+    for (let i = 0; i < destMarkers.markers.length; i++) {
       if (destMarkers.markers[i].type === 0xFFE0) {
         jfifMarker = destMarkers.markers[i];
         destMarkers.markers.splice(i, 1);
@@ -291,13 +295,13 @@ import jDataView from 'jdataview';
     }
 
     //copy all the app markers from the source
-    for (var i = 0; i < sourceMarkers.appMarkers.length; i++) {
+    for (let i = 0; i < sourceMarkers.appMarkers.length; i++) {
       marker = sourceMarkers.appMarkers[i];
       buffers.push(slice(sourceArrayBuffer, marker.position, (marker.position + (marker.size + 2))));
     }
 
     //copy all the other markers from the dest
-    for (var i = 0; i < destMarkers.markers.length; i++) {
+    for (let i = 0; i < destMarkers.markers.length; i++) {
       marker = destMarkers.markers[i];
       buffers.push(slice(destArrayBuffer, marker.position, (marker.position + (marker.size + 2))));
     }
@@ -333,7 +337,7 @@ import jDataView from 'jdataview';
     var littleEndian = (view.getUint16(view.tell() + 2) === 0x4949);
 
     //valid tiff header?
-    if (view.getUint16(view.tell(), littleEndian) != 0x002A || view.getUint32(view.tell(), littleEndian) != 0x00000008) {
+    if (view.getUint16(view.tell(), littleEndian) !== 0x002A || view.getUint32(view.tell(), littleEndian) !== 0x00000008) {
       return exif;
     }
 
